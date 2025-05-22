@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style> body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .profile-container {
+        width: 50%;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 10px #2C3E50;;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    .header {
+        background: linear-gradient(to right,rgb(237, 240, 243),rgb(12, 76, 133),rgb(12, 76, 133),rgb(237, 240, 243));
+        padding: 20px;
+        color: white;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid white;
+    }
+    
+    h2 {
+        margin: 10px 0;
+    }
+    
+    .section {
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .section h3 {
+        background:#2C3E50;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+    }
+    
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+</style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <img src="{{Inquiry.image.url}}" alt="Profile Photo" class="profile-pic">
+            <h2>{{ Inquiry.name }}</h2>
+        </div>
+        <div class="section">
+            <h3>Personal Information</h3>
+            <p><strong> Name:</strong> {{ Inquiry.name }}</p>
+            <p><strong>Gender:</strong> {{ Inquiry.gender }}</p>
+            
+            <p><strong>Date of Birth:</strong> {{ Inquiry.bod }}</p>
+            <p><strong>Email Id:</strong> {{ Inquiry.email }}</p>
+            <p><strong>Student Mobile:</strong> {{ Inquiry.mob }}</p>
+            <p><strong>Father Mobile:</strong> {{ Inquiry.pmob }}</p>
+
+            <p><strong>Address:</strong> {{ Inquiry.add }}</p>
+           
+            
+        </div>
+        <div class="section">
+            <h3>Educational Information</h3>
+            <p><strong>Roll No:</strong> {{ Inquiry.roll_no }}</p>
+            <p><strong>Class:</strong> {{  Inquiry.class_obj.name }}</p>
+            <p><strong>Batch:</strong> {{  Inquiry.batch.name }}</p>
+           
+        </div>
+    </div>
+</body>
+</html>

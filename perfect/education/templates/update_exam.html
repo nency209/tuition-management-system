@@ -1,0 +1,249 @@
+
+{% extends 'staff_dashboard.html' %}
+{% block content %}
+
+<head>
+{% comment %} 
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%)); 
+   color: #333;
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 1150px;
+  padding-top: 40px;
+  margin-left:300px;
+  margin-top:80px;
+  padding-left:100px;
+  height: 100px;
+}
+
+/* Panel styling */
+.panel {
+  
+  background-color:white;
+  color: #333;
+  overflow: auto;
+  box-shadow: 0 4px 25px #2C3E50;
+  border-radius: 5px;
+  height:auto;
+  width: 100%;
+  
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color:#2C3E50;
+  color:rgb(255, 255, 255);
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+/* Table header */
+.table th {
+  background-color: #eef2f7;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;  
+  color: #464545;
+  height: 50px;
+  width:1000px;
+}
+
+/* Table cells */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect on table rows */
+.table tr:hover {
+  background-color: #eef2f7;
+}
+
+/* Styling for form elements */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 50%;
+  font-size: 16px;
+  background-color: #faf5f5;
+}
+
+select:focus {
+  outline: none;
+  border-color: #97b6f3;
+}
+
+/* Styling for the class selection section */
+td {
+  padding: 3px;
+  vertical-align: middle;
+  font-size: 16px;
+  width: 50px;
+  
+}
+
+a {
+  color:#2C3E50;
+  text-decoration: none;
+}
+
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2C3E50;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  
+}
+
+button:hover {
+  background-color:rgb(5, 46, 87);
+}
+
+label{
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 20px;
+    color:#2C3E50;
+}
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .table td, .table th {
+      padding:5px;
+      width:100%;
+  }
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  </style>
+
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="panel">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color: white;"><strong> Update Exam Time Table</strong></h4>
+            </div>
+        
+    
+     <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td style="width: 30px;">
+                    <label for="class_id">Class:</label>
+                </td>
+                <td> <select id="class_id" name="class_id" onchange="this.form.submit()">
+                    <option value="">Select Class</option>
+                    {% for class in classes %}
+                    <option value="{{ class.id }}" {% if class.id == selected_class %}selected{% endif %}>{{ class.name }}</option>
+                    {% endfor %}
+                    </select> 
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="subject_id">Subject:</label></td>
+                <td>  <select id="subject_id" name="subject_id">
+                    <option value="">Select Subject</option>
+                    {% for subject in subjects %}
+                    <option value="{{ subject.id }}" {% if subject.id == exam.Subjects_obj.id %}selected{% endif %}>{{ subject.sub_name }}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="exam_name">Exam Name:</label></td>
+                <td> <input type="text" id="exam_name" name="exam_name" value="{{ exam.exam_name }}" required></td>
+            
+            </tr>
+            <tr>
+                <td><label for="date">Date:</label></td>
+                <td><input type="date" id="date" name="date" value="{{ exam.date }}" required></td>
+
+            </tr>
+
+            <tr>
+                <td> <label for="time">Start Time:</label></td>
+                <td><input type="text" id="time" name="time" value="{{ exam.time }}" required> </td>
+            </tr>
+            <tr>
+                <td><label for="e_time">End Time:</label> </td>
+                <td> <input type="text" id="e_time" name="e_time" value="{{ exam.e_time }}" required> </td>
+            </tr>
+            <tr>
+                <td><label for="day">Day:</label> </td>
+                <td> <input type="text" id="day" name="day" value="{{ exam.day }}" required> </td>
+            </tr>
+            <tr>
+                <td> <label for="total_marks">Total Marks:</label></td>
+                <td> <input type="number" id="total_marks" name="total_marks" value="{{ exam.total_marks }}" required></td>
+                
+            </tr>
+            <tr>
+                <td> <button type="submit" name="update_exam">Update Exam</button> </td>
+                <td> <a href="{% url 'viewexamtimetable' %}">Back to List</a>  </td>
+            </tr>
+        </table>
+        
+        
+       <br>
+        
+    </form>
+    </div>
+</div>
+    
+</body>
+</html>
+{% endblock content %}

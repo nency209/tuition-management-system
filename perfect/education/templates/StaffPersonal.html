@@ -1,0 +1,133 @@
+{% extends "teacher_nav.html" %}
+{% block content %}
+{% load static %}
+ <!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" /> 
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href={% static "CSS/Personal.css" %} />
+    
+    </style>
+     
+  </head>
+  <body style=" background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));">  
+    <div class="container" style=" background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%)); color: black; border: 1px solid #faa7a7; box-shadow: 0 4px 25px rgba(237, 54, 54, 0.3);">
+      <p style="color: black;">Staff Application Form</p>
+
+      <form action="#" class="form" method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          <label style="color: black;">Staff Full Name</label>
+          <input type="text" name="name" placeholder="Enter full name" required />
+        </div>
+
+        <div class="input-box">
+          <label style="color: black;">Email Address</label>
+          <input type="text" name="email" placeholder="Enter email address" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"  title="Enter a valid email (e.g., example@domain.com)" style="color: #707070;" />
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label style="color: black;">Phone Number</label>
+            <input type="text" name="phoneNo" placeholder="Enter phone number" pattern="[0-9]{10}" maxlength="10"  title="enter only ten digits" required />
+            
+          </div>  
+         
+        </div>
+        <div class="gender-box">
+          <h3 style="color: black;">Gender</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <input type="radio" id="check-male" name="gender" value="male"/>
+              <label for="check-male" style="color: black;" >male</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-female" name="gender" value="female"/>
+              <label for="check-female" style="color: black;">Female</label>
+            </div>
+            {% comment %} <div class="gender">
+              <input type="radio" id="check-other" name="gender" />
+              <label for="check-other">Oth</label>
+            </div> {% endcomment %}
+          </div>
+        </div>
+
+        
+        <div class="input-box address">
+          <label style="color: black;">Address</label>
+          {% comment %} <input type="text" name="address" placeholder="Enter street address" required />
+          <input type="text" name="address" placeholder="Enter street address line 2" required />  {% endcomment %}
+          <textarea name="address" placeholder="enter adress" rows="3" cols="82" style="border-radius: 6px; color: #707070; border-color: #d6d3d3;"></textarea>
+       
+       
+          
+        <div class="input-box">
+          <label style="color: black;">Highest Qualification</label>
+        <div class="column"> 
+          <div class="select-box">   
+            <select name="qulification" style="font-size: 1rem;">
+              <option hidden> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----Select Your Qulification------</option>
+              <option>12th pass</option>
+              <option>Bachelor's Degree</option>
+              <option>Master's Degree</option>
+              <option>PhD</option>
+              <option>Diploma</option>
+              <option>Other</option>
+            </select>
+          </div>
+      </div>
+            <div class="input-box">
+                <label style="color: black;">Field of Specialization</label>
+                <input type="text" name="specialization" placeholder="Field of Specialization" required pattern="^[A-Za-z]+$" title="Only letters ans speces are allowed"/>     
+              </div> 
+          </div>
+          <div class="input-box">
+            <label style="color: black;">Years Of Experience</label>
+            <input type="number" name="experience" min="0" max="50" placeholder="Years Of Experience" required />     
+          </div> 
+          <div class="column">
+            <div class="input-box">
+              <label style="color: black;">Password</label>
+              <input type="password" name="pas" 
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" 
+            title="Password must be at least 8 characters long and include at least one letter, one number, and one special character (@$!%?&)."  
+            required />   
+            </div>
+            <div class="input-box">
+              <label style="color: black;">confirm password</label>
+              <input type="password" name="cpas"  required />  
+            </div>
+            <div class="input-box">
+              <label style="color: black;">Upload Your Image</label>
+              <input type="file" id="fileUpload" name="image" required>
+            </div>
+          </div>
+         
+      
+         <button type="submit" name="submit"  style="background-color: hwb(0 35% 18%);" onmouseover="this.style.backgroundColor='hwb(0 25% 30%)'" 
+         onmouseout="this.style.backgroundColor='hwb(0 35% 18%)'">Submit</button>
+         {% if store %}
+    <script>
+      alert('{{store}}')
+    </script>
+    {% endif %}
+    {% if al %}
+    <script>
+      alert('{{al}}')
+    </script>
+    {% endif %}
+    {% if error %}
+    <script>
+      alert('{{error}}')
+    </script>
+    {% endif %}
+        </form>
+    </div> 
+   </body>
+</html>    
+{% endblock content%}

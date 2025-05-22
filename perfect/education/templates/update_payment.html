@@ -1,0 +1,163 @@
+{% extends 'a.html' %}
+{% block content %}
+
+<head>
+{% comment %} 
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%)); 
+   color: #333;
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 1150px;
+  padding-top: 40px;
+  margin-left:300px;
+  margin-top:100px;
+  padding-left:100px;
+  height: 100px;
+}
+
+/* Panel styling */
+.panel {
+  background-color:#2C3E50;
+  background-color:#ece8e8;
+  color: #333;
+  overflow: auto;
+  box-shadow: 0 4px 25px #2C3E50;
+  border-radius: 5px;
+  height:auto;
+  width: 100%;
+  
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color:#2C3E50;
+  color:rgb(255, 255, 255);
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+
+
+a {
+  color: #2C3E50;
+  text-decoration: none;
+}
+
+a:hover {
+    color:rgb(6, 30, 53);
+  }
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2C3E50;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  
+}
+
+button:hover {
+  background-color: rgb(6, 30, 53);
+}
+label{
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 20px;
+    color:black;
+}
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="color:white;"><strong>Update Gallery</strong></h4>
+    </div>
+    
+    
+    <form method="post" style="margin-left:50px;" >
+        {% csrf_token %}
+        <br>
+        <div>
+            <label>Amount:</label>
+            <input type="text" name="amount" value="{{ student.amount }}" required><br>
+        
+            <label>status:</label>
+            <input type="text" name="status" value="{{ student.status}}" required><br>
+        
+            
+            <label>Class:</label>
+            <select name="class_obj">
+                {% for class in classes %}
+                    <option value="{{ class.id }}" {% if student.class_obj.id == class.id %}selected{% endif %}>
+                        {{ class.name }}
+                    </option>
+                {% endfor %}
+            </select><br><br>
+        
+            <button type="submit">Update</button> <br><br>
+
+            <a href="{% url 'admin_payment' %}">Back to Payment List</a>
+        
+
+        <br>
+        <br>
+          
+        </form>
+    </div>
+    </div>
+    
+</body>
+</html>
+{% endblock content %}
+    
+

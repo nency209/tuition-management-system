@@ -1,0 +1,29 @@
+{% extends "a.html" %}
+{% block content %}
+<h2>Marks Report</h2>
+<form method="GET">
+    <label>Select Class:</label>
+    <select name="class_id">
+        <option value="">Select</option>
+        {% for clss in classes %}
+        <option value="{{ clss.id }}">{{ clss.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Subject</th>
+        <th>Marks</th>
+    </tr>
+    {% for record in marks_records %}
+    <tr>
+        <td>{{ record.student.name }}</td>
+        <td>{{ record.subject }}</td>
+        <td>{{ record.marks_obtained }}/{{ record.total_marks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'generate_marks_pdf' %}">Download PDF</a>
+{% endblock %}

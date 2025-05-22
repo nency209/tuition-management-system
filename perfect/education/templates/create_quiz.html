@@ -1,0 +1,176 @@
+{% extends "teacher_dashboard.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% comment %} <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% endcomment %}
+    <title>Create Quiz</title>
+
+    <style media="screen">
+   
+        /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    
+    /* Container for main content */
+    .container {
+      position: relative;
+      max-width: 700px;
+      padding-top: 20px;
+      margin-top: 80px;
+      margin-left: 500px;
+      padding: 30px;
+    }
+    
+    /* Panel styling */
+    .panel {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px #2C3E50;
+      width: 700px;
+    }
+    
+    /* Panel header styling */
+    .panel-heading {
+      background-color:#2C3E50;
+      color: #ffffff;
+      padding: 15px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: bold;
+     
+    }
+    
+    /* Table styling */
+    
+    
+    
+    label{
+          margin-top: 5px;
+          margin-bottom: 5px;
+  
+          font-size: 20px;
+          color:black;
+      }
+      input {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #faf5f5;
+    }
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #faf5f5;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+    
+   
+    
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #2C3E50;
+      color: #fff;
+
+    }
+    
+    button:hover {
+      background-color:rgb(25, 56, 87);
+    }
+    
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      .container {
+          padding: 15px;
+      }
+    
+      .table td, .table th {
+          padding: 8px;
+      }
+    
+      .panel-heading {
+          font-size: 16px;
+      }
+    }
+    
+      
+    </style>
+</head>
+
+
+<div class="container">
+	<div class="row" >
+    	<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="color: #ffffff;">Create Quiz</h4>
+          </div>
+  
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Quiz Title:</label>
+        <input type="text" name="title" required><br><br>
+
+        <label>Select Class:</label>
+        <select name="class" required>
+            <option value="">-- Select Class --</option>
+            {% for approved in approved_classes %}
+                <option value="{{ approved.Class_obj.id }}">{{ approved.Class_obj.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Select Subject:</label>
+        <select name="subject" required>
+            <option value="">-- Select Subject --</option>
+            {% for approved in approved_classes %}
+                <option value="{{ approved.Subjects.id }}">{{ approved.Subjects.sub_name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit" class="btnSubmit">Create Quiz</button>
+
+        
+    </form>
+
+    <br>
+    <a href="{% url 'teacher_dashboard' %}" style="color: #035ab8;;">Back to Dashboard</a>
+
+</html>
+{% endblock content %}

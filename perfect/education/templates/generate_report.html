@@ -1,0 +1,44 @@
+{% extends "a.html" %}
+{% block content %}
+
+<h2 style= "margin-left:300px; margin-top:80px">Generate Report</h2>
+
+<form method="GET" style= "margin-left:300px; margin-top:80px" action="{% url 'process_report' %}">
+    <label>Select Report:</label>
+    <select name="report_type">
+        <option value="attendance">Attendance Report</option>
+        <option value="marks">Marks Report</option>
+        <option value="payment">Payment Report</option>
+    </select>
+
+    <label>Select Class:</label>
+    <select name="class_id">
+        {% for class in classes %}
+        <option value="{{ class.id }}">{{ class.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Select Batch (for Attendance only):</label>
+    <select name="batch_id">
+        {% for batch in batches %}
+        <option value="{{ batch.id }}">{{ batch.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Select Exam (for Marks only):</label>
+    <select name="exam_id">
+        {% for exam in exams %}
+        <option value="{{ exam.id }}">{{ exam.exam_name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Select Month & Year (for Attendance only):</label>
+    <input type="number" name="month" min="1" max="12">
+    <input type="number" name="year" min="2020" max="2030">
+
+    <button type="submit">Generate PDF</button>
+</form>
+
+    
+
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends 'teacher_dashboard.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <style media="screen">
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    .form {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px  #2C3E50;
+      width: 700px;
+      height: 300px;
+      margin-top:50px;
+      margin-left: 100px;
+      
+    }
+    select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+  input{
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+  
+  .container {
+    position: relative;
+  max-width: 1000px;
+  padding-top: 100px;
+  margin-left:450px;
+  margin-top:100px;
+  padding:0px;
+  height: 100px;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: #08a4d3;
+  }
+    
+    a:link {
+      text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      height: 80px;
+      background-color:#2C3E50;
+      color: #ffffff;
+      font-weight: bold;
+      line-height: 100px;
+      font-family: 'Arial', sans-serif;
+      padding-top: 25px;
+    }
+    label{
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        font-size: 20px;
+        color:black;
+    }
+
+    .form-content {
+      padding: 5%;
+      border: 2px solid #ced4da;
+      margin-bottom: 2%;
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+      height: 100px;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #2C3E50;
+      color: #fff;
+      font-size:20px;
+    }
+  </style>
+
+  
+
+</head>
+<body>
+   
+       <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container register-form">
+          <div class="form">
+            <div class="note">
+              <h4 style="color: #ffffff;">Uploading for Class:  <strong>{{ teacher.name }}</strong></h4>
+            </div>
+            <div class="form-content">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="column">
+                    <label style="font-family: 'Arial';"><b>Upload PDF : </b></label> <br>
+                    <input type="file" name="pdf_url" style="font-size:20px"    required> <br> <br>
+                  </div>
+                </div>
+              </div>
+              <div class=".btnSubmit ">
+                <button type="submit" class="btnSubmit">Upload</button>
+                
+                </div>
+                </div>
+              </div>
+              
+            
+              <br>
+              <br>
+
+
+
+            {% if success %}
+        <script>
+          alert('{{success}}')
+        </script>
+        {% endif %}
+
+        {% if error %}
+        <script>
+          alert('{{error}}')
+        </script>
+        {% endif %}
+        </form>
+      </div>
+    </div>
+    
+</body>
+
+</html>
+{% endblock content %}

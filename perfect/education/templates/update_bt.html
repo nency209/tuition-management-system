@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Timetable Entry</title>
+</head>
+<body>
+    <h1>Update Timetable Entry for {{ timetable_entry.time_slot }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="time_slot">Time Slot:</label>
+        <input type="text" name="time_slot" value="{{ timetable_entry.time_slot }}">
+        
+        <label for="subjects">Subjects:</label>
+        <input type="text" name="subjects" value="{{ timetable_entry.subjects }}">
+        
+        <label for="day">Day:</label>
+        <input type="text" name="day" value="{{ timetable_entry.day }}">
+        
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

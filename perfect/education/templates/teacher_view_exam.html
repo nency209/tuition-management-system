@@ -1,0 +1,208 @@
+{% extends "teacher_dashboard.html" %}
+{% block content %}
+{% load static %}
+
+
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    body {
+            
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+        font-family: 'Arial', sans-serif;
+    }
+    form {
+        width: 50%;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 25px #2C3E50;
+        border-radius: 5px;
+        margin-top:40px;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+        
+    }
+
+    select:focus{
+        outline: none;
+        border-color:#2C3E50;
+    }
+
+    table {
+        width:100px;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 25px #2C3E50;
+        border-radius: 5px;
+        margin-left:300px;
+        
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        width:100px;
+    }
+    th {
+        background-color:rgb(185, 56, 56);
+    }
+    label{
+        font-size: 20px;
+        color:black;
+    }
+    p
+    {
+        margin-left:300px;
+    }
+  </style>
+
+</head>
+
+
+
+<!--
+written By : sumit kumar
+facebook : fb.com/sumit.luv
+-->
+<body>
+    <h2 style="padding-left:650px; ">View Exam Timetable</h2>
+
+    <form method="GET">
+        <label for="class_id">Select Class:</label>
+        <select name="class_id" id="class_id" onchange="this.form.submit()">
+            <option value="">--Select Class--</option>
+            {% for class in classes %}
+                <option value="{{ class.id }}" {% if class.id|stringformat:"s" == selected_class_id %}selected{% endif %}>
+                    {{ class.name }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        {% if exams %}
+        <label for="exam_name" style="padding-top: 19px;">Select Exam:</label>
+        <select name="exam_name" id="exam_name" onchange="this.form.submit()">
+            <option value="">--Select Exam--</option>
+            {% for exam in exams %}
+                <option value="{{ exam }}" {% if exam == selected_exam_name %}selected{% endif %}>
+                    {{ exam }}
+                </option>
+            {% endfor %}
+        </select>
+        {% endif %}
+    </form>
+                
+                <br>
+
+    <!-- Timetable -->
+    <table class="table table-bordered timetable">
+        
+        {% comment %} <tbody id="timetable-body"> {% endcomment %}
+         <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Day</th>
+                <th>Subject</th>
+                <th>Marks</th>
+                
+                
+            </tr>
+            
+            
+            
+
+            {% if timetables %}
+                    {% comment %} <h2>Subjects</h2> {% endcomment %}
+                    {% for b in timetables %}
+                    
+                    <tr>
+                        {% comment %} <td>{{ b.exam_name }}</td>  {% endcomment %}
+                        <td>{{ b.date }}</td>  
+                        <td>{{ b.time }}-{{ b.e_time }}</td> 
+                        <td>{{ b.day }}</td> 
+                        <td>{{ b.Subjects_obj.sub_name }}</td>
+                        <td>{{ b.total_marks  }}</td>
+                        <td><a class="fas fa-edit" href="{% url 'update_exam' b.id  %}"><i class="fas fa-edit"></i></a></td>
+                        <td><a class="fa fa-trash" href="{% url 'delete_exam' b.id  %}"  > </a></td>
+                        
+                    </tr>
+                    {% endfor %}
+            {% else %}
+                     <p> no time table available</p>
+            {% endif %}
+        {% comment %} </tbody> {% endcomment %}
+    </table>
+
+<script>
+    const timetableData = {};
+
+    function addTimetableEntry() {
+        const time = document.getElementById("time").value;
+        const day = document.getElementById("day").value;
+        const subject = document.getElementById("subject").value;
+        const teacher = document.getElementById("teacher").value;
+
+        if (time && day && subject && teacher) {
+            // Check if time slot already exists
+            if (!timetableData[time]) {
+                timetableData[time] = { lectureNumber: Object.keys(timetableData).length + 1, details: ["", "", "", "", "", "", ""] };
+            }
+
+            // Map day to its column index
+            const dayIndex = {
+                "Monday": 0,
+                "Tuesday": 1,
+                "Wednesday": 2,
+                "Thursday": 3,
+                "Friday": 4,
+                "Saturday": 5,
+                "Sunday": 6
+            };
+
+            // Add class and teacher details to the appropriate day
+            timetableData[time].details[dayIndex[day]] = Lecture ${timetableData[time].lectureNumber}<br>${subject}<br><small>${teacher}</small>;
+
+            // Update the timetable
+            updateTimetable();
+
+            // Clear the form
+            document.getElementById("timetableForm").reset();
+        } else {
+            alert("Please fill out all fields!");
+        }
+    }
+
+    function updateTimetable() {
+        const timetableBody = document.getElementById("timetable-body");
+        timetableBody.innerHTML = ""; // Clear existing rows
+
+        for (const [time, { lectureNumber, details }] of Object.entries(timetableData)) {
+            const row = document.createElement("tr");
+
+            const timeCell = document.createElement("td");
+            timeCell.innerHTML = ${time}<br><small>Lecture ${lectureNumber}</small>;
+            row.appendChild(timeCell);
+
+            details.forEach(detail => {
+                const detailCell = document.createElement("td");
+                detailCell.innerHTML = detail || "--"; // Placeholder for empty cells
+                row.appendChild(detailCell);
+            });
+
+            timetableBody.appendChild(row);
+        }
+    }
+</script>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,113 @@
+{% extends "student_dashboard.html" %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Already Attempted</title>
+
+    <style media="screen">
+   
+        /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    
+    /* Container for main content */
+    .container {
+      position: relative;
+      max-width: 700px;
+      padding-top: 20px;
+      margin-top: 80px;
+      margin-left: 500px;
+      padding: 30px;
+    }
+    
+    /* Panel styling */
+    .panel {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px #2C3E50;
+      width: 700px;
+      height:200px
+    }
+    
+    /* Panel header styling */
+    .panel-heading {
+      background-color:#2C3E50;
+      color: #ffffff;
+      padding: 15px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: bold;
+     
+    }
+    
+    /* Table styling */
+    
+    
+    
+    label{
+         
+         
+          font-size: 20px;
+          color:black;
+      }
+a{
+    color: #035ab8;
+
+}
+a:hover {
+       color: purple;
+    }
+
+      /* Responsive styling */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+      
+        .table td, .table th {
+            padding: 8px;
+        }
+      
+        .panel-heading {
+            font-size: 16px;
+        }
+      }
+      
+    </style>
+</head>
+
+<div class="container">
+	<div class="row" >
+    	<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="color: #ffffff;">You have already attempted "{{ quiz.title }}"</h4>
+          </div>
+    
+    <label style="padding-top: 10px;padding-left: 250px;"> Your Score: </label><label style="margin-top: 10px;">{{ marks }} Marks</label></br></br>
+    <a href="{% url 'view_quiz_marks' %}" style="padding-left:280px ;">View All Scores</a>
+
+</div>
+</div>
+</html>
+{% endblock content %}

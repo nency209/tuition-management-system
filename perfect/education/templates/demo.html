@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class and Subjects</title>
+</head>
+<body>
+<h1>Select Class</h1>
+<form method="get">
+    <label for="class_id">Class:</label>
+    <select name="class_id" id="class_id" onchange="this.form.submit()">
+        <option value="">Select a Class</option>
+        {% for class in classes %}
+            <option value="{{ class.id }}" {% if selected_class_id == class.id|stringformat:'s' %}selected{% endif %}>
+                {{ class.name }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+{% if subjects %}
+    <h2>Subjects</h2>
+    <ul>
+        {% for subject in subjects %}
+            <li>{{ subject.name }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,259 @@
+
+{% extends 'staff_dashboard.html' %}
+{% block content %}
+
+<head>
+{% comment %} 
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>Student Attendance</title>
+  <style media="screen">
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%)); 
+   color: #333;
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 1150px;
+  padding-top: 20px;
+  margin-left:300px;
+  margin-top:80px;
+  padding-left:100px;
+  height: 100px;
+}
+
+/* Panel styling */
+.panel {
+  
+  background-color:rgb(255, 255, 255);
+  color: #333;
+  overflow: auto;
+  box-shadow: 0 4px 25px #2C3E50;
+  border-radius: 5px;
+  height:auto;
+  width: 100%;
+  
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color:#2C3E50;
+  color:rgb(255, 255, 255);
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+/* Table header */
+table th {
+  background-color: #eef2f7;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;  
+  color: #464545;
+  height: 50px;
+  width:1000px;
+}
+
+/* Table cells */
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect on table rows */
+table tr:hover {
+  background-color: #eef2f7;
+}
+
+/* Styling for form elements */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 50%;
+  
+  font-size: 20px;
+  background-color: #faf5f5;
+}
+
+select:focus {
+  outline: none;
+  border-color: #97b6f3;
+}
+
+/* Styling for the class selection section */
+td {
+  padding: 15px;
+  vertical-align: middle;
+  font-size: 16px;
+  
+}
+
+a {
+  color: #2C3E50;
+  text-decoration: none;
+  margin-left:30px;
+}
+
+a:hover {
+  color:rgb(6, 30, 53);
+}
+
+label{
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 20px;
+    color:black;
+}
+
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2C3E50;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  margin-left:40px;
+  
+}
+
+button:hover {
+  background-color: rgb(6, 30, 53);
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .table td, .table th {
+      padding:5px;
+      width:100%;
+  }
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  </style>
+
+  
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="panel">
+        <div class="panel-heading">
+          <h4 class="panel-title" style="color:white;"><strong>Mark Attendance</strong></h4>
+      </div> <br> <br>
+      <form method="POST">
+        {% csrf_token %}
+    <table>
+        <tr><td><label for="date">Date:</label></td>
+            <td><input type="date" name="date" value="{{ selected_date }}"></td>
+        </tr>
+        <tr>
+        <td><label for="class">Select Class:</label></td>
+        <td><select name="class" onchange="this.form.submit()">
+            <option value="">-- Select Class --</option>
+            {% for class in classes %}
+                <option value="{{ class.id }}" {% if selected_class == class.id|stringformat:"s" %}selected{% endif %}>
+                    {{ class.name }}
+                </option>
+            {% endfor %}
+        </select></td>
+
+        {% if batches %}
+        <tr><td><label for="batch">Select Batch:</label></td>
+            <td><select name="batch" onchange="this.form.submit()">
+            <option value="">-- Select Batch --</option>
+            {% for batch in batches %}
+                <option value="{{ batch.id }}" {% if selected_batch == batch.id|stringformat:"s" %}selected{% endif %}>
+                    {{ batch.name }}
+                </option>
+            {% endfor %}
+            </td></select>
+        </tr>
+    </table>
+        {% endif %}
+    </form>
+
+
+    
+
+    {% if students %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="class" value="{{ selected_class }}">
+        <input type="hidden" name="batch" value="{{ selected_batch }}">
+        <input type="hidden" name="date" value="{{ selected_date }}">
+
+        <table border="1" style="width:auto">
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Attendance</th>
+            </tr>
+            {% for students in students %}
+            <tr>
+                <td>{{ students.roll_no }}</td>
+                <td>{{ students.name }}</td>
+                <td>
+                    <input type="radio" name="attendance_{{ students.id }}" value="Present" checked> Present
+                    <input type="radio" name="attendance_{{ students.id }}" value="Absent"> Absent
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+
+        <button type="submit" name="submit_attendance">Submit Attendance</button>
+    </form>
+    {% endif %}
+
+
+</div>
+</div>
+</body>
+
+</html>
+{% endblock content %}
+
+
+    

@@ -1,0 +1,162 @@
+{% extends "teacher_nav.html" %}
+{% block content %}
+{% load static %}
+ <!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" /> 
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="{% static 'CSS/Personal.css' %}" />
+     
+  </head>
+  <body style=" background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));">  
+    <div class="container" style=" background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%)); color: black; border: 1px solid #faa7a7; box-shadow: 0 4px 25px rgba(237, 54, 54, 0.3);">
+      <p style="color: black;">Students Admission Form</p>
+
+      <form action="#" class="form" Method="POST" enctype="multipart/form-data" style="color: black;">
+        {% csrf_token %}
+        <div class="input-box">
+          <label style="color: black;">Student Full Name</label>
+          <input type="text" name="name" placeholder="Enter full name" required pattern="^[A-Za-z ]+" title="Only letters ans speces are allowed"/>
+        </div>
+
+        <div class="input-box">
+          <label style="color: black;">Email Address</label>
+          <input type="email" name="email" placeholder="Enter email address" required  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"  title="Enter a valid email (e.g., example@domain.com)" style="color: #707070; "/>
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label style="color: black;">Phone Number</label>
+            <input type="text" name="no" placeholder="Enter phone number" pattern="[0-9]{10}" maxlength="10" title="enter only ten digits" required />   
+          </div>
+          <div class="input-box">
+            <label style="color: black;">Parents Number</label>
+            <input type="text" name="pno" placeholder="Enter phone number" pattern="[0-9]{10}" maxlength="10" title="enter only ten digits" required />  
+          </div>  
+         <div class="input-box">
+            <label style="color: black;">Birth Date</label>
+            <input type="date" name="bod" placeholder="Enter birth date" required />
+          </div>   
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label style="color: black;">Password</label>
+            <input type="password" name="pas" 
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" 
+            title="Password must be at least 8 characters long and include at least one letter, one number, and one special character (@$!%?&)."  
+            required />   
+          </div>
+          <div class="input-box">
+            <label style="color: black;">confirm password</label>
+            <input type="password" name="cpas"  required />  
+
+          </div>
+          <div class="input-box">
+            <label style="color: black;">Upload Your Image</label>
+            <input type="file" id="fileUpload" name="image" required>
+          </div>
+        </div>
+        <div class="gender-box" >
+          <h3 style="color: black;">Gender</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <label for="check-male" style="color: black;"><input type="radio" id="check-male" name="gender" value="male" />male</label>
+            </div>
+            <div class="gender">
+              <label for="check-female" style="color: black;"><input type="radio" id="check-female" name="gender" value="female"/>Female</label>
+            </div>
+            {% comment %} <div class="gender">
+              <input type="radio" id="check-other" name="gender" />
+              <label for="check-other">Oth</label>
+            </div> {% endcomment %}
+          </div>
+        </div>
+        <div class="input-box address">
+           <label style="color: black;">Address</label>
+          <!-- <input type="text"  placeholder="Enter street address" required />
+          <input type="text" placeholder="Enter street address line 2" required /> -->
+          <textarea placeholder="enter adress" name="add" rows="3" cols="82" style="border-radius: 6px; color: #707070; border-color: #d6d3d3 "></textarea>
+          <div class="column">
+            <div class="select-box">
+              <select name="class_id" style="font-size: 1rem;">
+                <option hidden>--------Select Class--------</option>
+                {% for i in  cls  %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+              </select>  
+            </div> 
+          </div>
+          
+    
+          
+  <div class="column">
+    <div class="select-box">
+      <label>Select State</label>
+      <select name="state_id" id="state" onchange="this.form.submit()">
+        <option value="">-- Select State --</option>
+        {% for state in states %}
+            <option value="{{ state.id }}" {% if state.id|stringformat:"s" == selected_state %}selected{% endif %}>
+                {{ state.name }}
+            </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="select-box">
+      <label>Select City</label>
+      <select name="city_id" id="city" onchange="this.form.submit()">
+        <option value="">-- Select City --</option>
+        {% for city in cities %}
+            <option value="{{ city.id }}" {% if city.id|stringformat:"s" == selected_city %}selected{% endif %}>
+                {{ city.name }}
+            </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="select-box">
+      <label>Select Area</label>
+      <select name="area_id" id="area">
+        <option value="">-- Select Area --</option>
+        {% for area in areas %}
+            <option value="{{ area.id }}">{{ area.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <input type="number" name="code" placeholder="Enter pin code" pattern="^[0-9]{6}$" title="PIN code must be exactly 6 digits." required />
+  </div>        
+          
+              </form>
+         <button type="submit" style="background-color:hwb(0 35% 18%);" onmouseover="this.style.backgroundColor='hwb(0 25% 30%)'" 
+         onmouseout="this.style.backgroundColor='hwb(0 35% 18%)'">SUBMIT</button>
+          
+                
+        
+      </form> 
+      {% if store %}
+    <script>
+      alert('{{store}}')
+    </script>
+    {% endif %}
+    {% if al %}
+    <script>
+      alert('{{al}}')
+    </script>
+    {% endif %}
+    {% if error %}
+    <script>
+      alert('{{error}}')
+    </script>
+    {% endif %}
+  </div>
+   </body>
+</html>    
+{% endblock content%}

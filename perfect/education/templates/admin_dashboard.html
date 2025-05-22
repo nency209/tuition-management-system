@@ -1,0 +1,50 @@
+{% extends "a.html" %}
+{% block content %}
+<div class="container mt-6">
+    <h2 style= "margin-left:150px; margin-top:80px">WELCOME ADMIN</h2>
+
+    <div class="row">
+        <!-- Total Students -->
+        <div class="col-md-4">
+            <div class="card text-white  mb-5"  style="background-color: #2C3E50; margin-left:150px; margin-top:50px";>
+                <div class="card-header">Total Students</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ total_students }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Fees Collected -->
+       
+        <!-- Total Fees Collected -->
+        <div class="col-md-4">
+            <div class="card text-white mb-3"  style="background-color: #2C3E50; margin-left:150px; margin-top:50px";>
+                <div class="card-header">Total Teacher Collected</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ total_t }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Fees Collected -->
+        <div class="col-md-4">
+            <div class="card text-white mb-3"  style="background-color: #2C3E50; margin-left:150px; margin-top:50px";>
+                <div class="card-header">Total Staff Collected</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ total_st }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white mb-3"  style="background-color: #2C3E50; margin-left:150px; margin-top:50px";>
+                <div class="card-header">Total Fees Collected</div>
+                <div class="card-body">
+                    <h4 class="card-title">₹{{ total_fees_collected }}</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

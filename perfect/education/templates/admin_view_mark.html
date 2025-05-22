@@ -1,0 +1,117 @@
+{% extends "a.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    body {
+            
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+        font-family: 'Arial', sans-serif;
+    }
+    form {
+        width: 50%;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 25px #2C3E50;
+        border-radius: 5px;
+        margin-top:80px;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+        
+    }
+
+    select:focus{
+        outline: none;
+        border-color:#2C3E50;
+    }
+
+    table {
+        width: 60%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 25px #2C3E50;
+        border-radius: 5px;
+        
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+    th {
+        {% comment %} background-color:#2C3E50; {% endcomment %}
+    }
+    label{
+        font-size: 20px;
+        color:black;
+    }
+  </style>
+</head>
+
+<form method="get">
+    <label>Select Class:</label>
+    <select name="class_id" onchange="this.form.submit()">
+        <option value="">-- Select Class --</option>
+        {% for class in classes %}
+        <option value="{{ class.id }}" {% if selected_class|slugify == class.id|slugify %}selected{% endif %}>
+            {{ class.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+
+{% if exams %}
+
+    <input type="hidden" name="class_id" value="{{ selected_class }}">
+    <label >Select Exam:</label>
+    <select name="exam_id" onchange="this.form.submit()">
+        <option value="">-- Select Exam --</option>
+        {% for exam in exams %}
+        <option value="{{ exam.id }}" {% if selected_exam|slugify == exam.id|slugify %}selected{% endif %}>
+            {% comment %} {{ exam.Subjects_obj.sub_name }} - {{ exam.day }} {% endcomment %}{{ exam.exam_name }}
+        </option>
+        {% endfor %}
+    </select>
+</form>
+{% endif %}
+
+{% if students_marks %}
+<table style="margin-top: 15px; margin-left: 350px;">
+    <tr>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>total_marks</th>
+        <th>Achieved Marks</th>
+        
+    </tr>
+    {% for mark in students_marks %}
+    <tr>
+        <td>{{ mark.student_obj.roll_no }}</td>
+        <td>{{ mark.student_obj.name }}</td>
+        <td>{{ mark.exam_obj.total_marks }}</td>
+        <td>{{ mark.achieve_marks }}</td>
+        {% comment %} <td><a class="fas fa-edit" href="{% url 'update_mark' mark.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a></td> {% endcomment %}
+        {% comment %} <td><a class="fa fa-trash" href="{% url 'delete_mark' mark.id  %}"  ><span class="glyphicon glyphicon-trash"></span></a></td> {% endcomment %}
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<center>
+    <a href="{% url 'generate_pdf' class_id=selected_class %}" class="btn btn-primary">
+        Download Marks Report
+    </a>
+</center>
+{% endif %}
+{% endblock content%}

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Admin Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+    <h2>Student Registration Dashboard</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr id="student-{{ student.id }}">
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.status }}</td>
+                    {% comment %} <td id="status-{{ student.id }}">{{ student.get_status_display }}</td> {% endcomment %}
+                    <td>
+                        {% if student.status == 'pending' %}
+                            <a href="{% url 'approve_student' student.id %}"  >Approve</a>
+                            {% comment %} <button class="reject-btn" data-id="{{ student.id }}">Reject</button>
+                        {% else %}
+                            <button disabled>Already {{ student.get_status_display }}</button> {% endcomment %}
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% comment %} <script>
+        $(document).ready(function() {
+            // Approve student
+            $('.approve-btn').click(function() {
+                var studentId = $(this).data('id');
+                $.ajax({
+                    url: 'approve_student/',  // The URL to handle AJAX
+                    type: 'POST',
+                    data: {
+                        'student_id': studentId,
+                        'status': 'approved',
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#status-' + studentId).text('Approved');
+                            $('#student-' + studentId + ' .approve-btn').prop('disabled', true);
+                            $('#student-' + studentId + ' .reject-btn').prop('disabled', true);
+                        }
+                    }
+                });
+            });
+
+            // Reject student
+            $('.reject-btn').click(function() {
+                var studentId = $(this).data('id');
+                $.ajax({
+                    url: 'reject_student/',  // The URL to handle AJAX
+                    type: 'POST',
+                    data: {
+                        'student_id': studentId,
+                        'status': 'rejected',
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#status-' + studentId).text('Rejected');
+                            $('#student-' + studentId + ' .approve-btn').prop('disabled', true);
+                            $('#student-' + studentId + ' .reject-btn').prop('disabled', true);
+                        }
+                    }
+                });
+            });
+        });
+    </script> {% endcomment %}
+</form>
+</body>
+</html>

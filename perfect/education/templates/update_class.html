@@ -1,0 +1,154 @@
+{% extends 'a.html' %}
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #ffffff, #ffffff, #ffffff);
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+    }
+
+    .container {
+      position: relative;
+      max-width: 1150px;
+      padding-top: 40px;
+      margin-left: 300px;
+      margin-top: 100px;
+      padding-left: 100px;
+      height: 100px;
+    }
+
+    .panel {
+      background-color: #ece8e8;
+      color: #333;
+      overflow: auto;
+      box-shadow: 0 4px 25px #2C3E50;
+      border-radius: 5px;
+      height: auto;
+      width: 100%;
+    }
+
+    .panel-heading {
+      background-color: #2C3E50;
+      color: rgb(255, 255, 255);
+      padding: 15px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    a {
+      color: #2C3E50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: rgb(6, 30, 53);
+    }
+
+    button {
+      padding: 10px 15px;
+      border-radius: 4px;
+      border: none;
+      background-color: #2C3E50;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(6, 30, 53);
+    }
+
+    label {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-size: 20px;
+      color: black;
+    }
+
+    /* Hide error message initially */
+    #error-message {
+      display: none;
+      color: red;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .panel-heading {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="color:white;"><strong>Are you sure you want to Update {{ student.name }}?</strong></h4>
+      </div>
+
+      <form method="post" onsubmit="return validateInput()" style="margin-left:50px;">
+        {% csrf_token %}
+        <br>
+        <label>Name:</label>
+        <input type="text" name="name" id="classInput" value="{{ student.name }}" placeholder="e.g., Class 9, Class 10" required><br> <br>
+
+        <button type="submit">Update</button>
+        <br><br>
+        <span id="error-message" class="error">Please enter in format: Class 9, Class 10</span>
+        <br><br>
+
+        <a href="{% url 'class_view' %}">Back to Class List</a>
+        <br><br>
+
+        <script>
+          function validateInput() {
+              let inputField = document.getElementById("classInput");
+              let errorMessage = document.getElementById("error-message");
+              let pattern = /^Class\s\d+$/; // Ensure format "Class X"
+
+              let inputValue = inputField.value.trim(); // Trim spaces
+
+              if (!pattern.test(inputValue)) {
+                  errorMessage.style.display = "inline"; // Show error message
+                  return false; // Prevent form submission
+              } else {
+                  errorMessage.style.display = "none"; // Hide error message
+                  return true; // Allow form submission
+              }
+          }
+        </script>
+
+        {% if exit %}
+        <script>
+          alert("{{ exit|escapejs }}"); // Fix for safe JavaScript output
+        </script>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
+
+{% endblock content %}

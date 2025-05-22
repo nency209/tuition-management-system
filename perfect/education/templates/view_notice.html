@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            color: #333;
+            padding: 20px 0;
+            margin: 0;
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        strong {
+            font-size: 18px;
+            color: #2980b9;
+        }
+
+        small {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 28px;
+            }
+
+            li {
+                padding: 12px;
+            }
+
+            small {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Notices</h2>
+    {% if notices %}
+        <ul>
+            {% for notice in notices %}
+                <li>
+                    <strong>{{ notice.name }}</strong> - {{ notice.msg}} <br>
+                    <small>Posted on: {{ notice.date }}</small><br>
+                    <a class="fa fa-trash" href="{% url 'delete_notice' notice.id  %}"  ><span class="glyphicon glyphicon-trash"></span>Delete</a>
+                </li>
+                
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notices available.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,205 @@
+{% extends 'a.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <style media="screen">
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    .form {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px  #2C3E50;
+      width: 700px;
+      height: 500px;
+      
+    }
+    select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+
+  .container {
+    position: relative;
+    max-width: 1250px;
+    padding-top: 100px;
+    margin-left:350px;
+    margin-top:100px;
+    padding:0px;
+    height: 100px;
+  }
+
+  input{
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #08a4d3;
+  }
+    
+    a:link {
+      text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      height: 80px;
+      background-color: #2C3E50;
+      color: #ffffff;
+      font-weight: bold;
+      line-height: 100px;
+      font-family: 'Arial', sans-serif;
+      padding-top: 25px;
+    }
+    label{
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        font-size: 20px;
+        color:black;
+    }
+
+    .form-content {
+      padding: 5%;
+      border: 2px solid #ced4da;
+      margin-bottom: 2%;
+      height:500px;
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+      height: 100px;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 40%;
+      cursor: pointer;
+      background:  #2C3E50;
+      color: #fff;
+    }
+
+    .error {
+      color: red;
+      display: none;
+  }
+  </style>
+
+  
+
+</head>
+
+<!------ notice page for  by admin(sumit)  ---------->
+<form method="post" onsubmit="return validateNumber()" style="width:700px;padding-left: 200px;" >
+  {% csrf_token %}
+  <div class="container register-form">
+    <div class="form">
+      <div class="note">
+        <h4 style="color: #ffffff;">Add Fees</h4>
+      </div>
+
+      <div class="form-content">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="column">
+                <label style="font-family: 'Arial';">Select Class : </label> <br>
+                <div class="select-box">
+                  <select name="select" required>
+                    <option hidden value="">------Select Class-----</option>
+                    {% for i in  cls  %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div> 
+              </div>
+          <br> 
+          <label style="font-family: 'Arial';">Enter Fees : </label> <br>
+          <div class="input-box">
+            <input type="number" id="numberInput" name="name"   oninput="limitInputLength()" placeholder="Enter up to 6 digits" required />
+          </div>
+          <br>
+          <br>
+          <div class=".btnSubmit ">
+          <button type="submit" class="btnSubmit">Submit</button>
+          
+          
+          <span id="error-message" class="error">Maximum 6 digits allowed.</span>
+        <br><br>
+
+        <br><br>
+        
+          </div>
+            </div>
+          </div>
+        
+        </div>
+        <br>
+        <br>
+        <script>
+          function limitInputLength() {
+              let numberInput = document.getElementById("numberInput");
+  
+              if (numberInput.value.length > 6) {
+                  numberInput.value = numberInput.value.slice(0, 6); // Cut extra digits
+              }
+          }
+  
+          function validateNumber() {
+              let numberInput = document.getElementById("numberInput");
+              let errorMessage = document.getElementById("error-message");
+  
+              if (numberInput.value.length > 6) {
+                  errorMessage.style.display = "inline"; // Show error
+                  return false; // Prevent form submission
+              } else {
+                  errorMessage.style.display = "none"; // Hide error
+                  return true; // Allow form submission
+              }
+          }
+  
+      </script>
+
+        {% if sucessfully %}
+    <script>
+      alert('{{sucessfully}}')
+    </script>
+    {% endif %}
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+{% endblock content %}

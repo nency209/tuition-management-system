@@ -1,0 +1,245 @@
+{% extends 'a.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+{% comment %} 
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style media="screen">
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 1000px;
+  padding-top: 100px;
+  margin-left:540px;
+  margin-top:100px;
+  padding:0px;
+  height: 100px;
+}
+
+/* Panel styling */
+.panel {
+  border: 1px solid #e6cccc;
+  background-color:#ece8e8;
+  color: #333;
+  overflow: auto;
+  box-shadow: 0 4px 25px  #2C3E50;
+  border-radius: 5px;
+  height:auto;
+  
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color: #2C3E50;
+  color:rgb(255, 255, 255);
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  padding-right:400px;
+  width: 131%;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/* Table header */
+.table th {
+  background-color: #eef2f7;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;  
+  color: #464545;
+  height: 50px;
+  width:1000px;
+}
+
+/* Table cells */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect on table rows */
+.table tr:hover {
+  background-color: #eef2f7;
+}
+
+/* Styling for form elements */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #faf5f5;
+}
+
+select:focus {
+  outline: none;
+  border-color:rgba(237, 54, 54, 0.3);
+}
+
+/* Styling for the class selection section */
+td {
+  padding: 15px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+/* Lists inside div */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .table td, .table th {
+      padding:5px;
+  }
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  </style>
+
+</head>
+
+
+
+
+
+<!--
+written By : sumit kumar
+facebook : fb.com/sumit.luv
+-->
+
+
+<div class="container">
+  <div class="row" style="width:130%; height:150%;">
+   <div class="panel panel-primary" style="width:100%;  margin-left:-250px;">
+      <div class="panel-heading">
+        <h4 class="panel-title" style="color:white"><strong>Student Information</strong></h4>
+
+      </div>
+      <table class="table table-hover" id="dev-table" >
+        <thead>
+          <tr>
+        
+            <th>Name </th>
+            <th>email</th>
+            <th>Mobile</th>
+            <th>parent mo</th>
+            <th>bod</th>
+            <th>password</th>
+            <th>gender</th>
+            <th>add</th>
+            <th>class</th>
+            <th>state</th>
+            <th>city</th>
+            <th>area</th>
+            <th>pincode</th>
+            <th>status</th>
+            <th>Actions</th>
+            {% comment %} <th>Update</th>{% endcomment %}
+            <th>Delete</th> 
+          </tr>
+        </thead>
+        {% for s in stu %}
+        <tr id="inquiry-{{ i.id }}">
+          {% comment %} <td> {{s.id}}</td> {% endcomment %}
+          
+          <td> {{s.name}}</td>
+          <td><img src="{{s.image.url}}" alt="Subject Image" style="max-width: 100px; max-height: 100px;" /></td>
+          <td>{{s.email}}</td>
+          <td>{{s.mob}}</td>
+          <td>{{s.pmob}}</td>
+          <td>{{s.bod}}</td>
+          <td>{{s.pas}}</td>
+          <td>{{s.gender}}</td>
+          <td>{{s.add}}</td>
+          <td>{{s.class_obj.name}}</td>
+          <td>{{s.state}}</td>
+          <td>{{s.city}}</td>
+          <td>{{s.area}}</td>
+          <td>{{s.code}}</td>
+          <td>{{ s.status }}</td>
+                    {% comment %} <td id="status-{{ s.id }}">{{ student.get_status_display }}</td> {% endcomment %}
+                    <td>
+                        {% if s.status == 'pending' %}
+                            <a href="{% url 'approve_student' s.id %}">Approve</a>
+                        {% endif %}
+                        
+                    </td>
+          {% comment %} <td><a class="btn btn-primary btn-xs" href="{% url 'update_student' %}"><span class="glyphicon glyphicon-edit"></span></a></td> {% endcomment %}
+         <td><a class="fa fa-trash" href="{% url 'delete_istudent' s.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>  
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}

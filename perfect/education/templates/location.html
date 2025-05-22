@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Locations</title>
+</head>
+<body>
+    <h2>All Locations</h2>
+
+    <h3>States:</h3>
+    <ul>
+        {% for state in states %}
+            <li>{{ state.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Cities:</h3>
+    <ul>
+        {% for city in cities %}
+            <li>{{ city.name }} ({{ city.state.name }})</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Areas:</h3>
+    <ul>
+        {% for area in areas %}
+            <li>{{ area.name }} ({{ area.city.name }})</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

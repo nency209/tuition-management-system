@@ -1,0 +1,156 @@
+{% extends "student_dashboard.html" %}
+{% block content %}
+
+<head>
+
+  
+
+    <style media="screen">
+     
+        /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    
+    /* Container for main content */
+    .container {
+      position: relative;
+      max-width: 700px;
+      padding-top: 40px;
+      margin: 0 auto;
+      padding: 30px;
+      margin-top:100px;
+      margin-left:500px;
+    }
+    
+    /* Panel styling */
+    .panel {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px #2C3E50;
+      width: 700px;
+    }
+    
+    /* Panel header styling */
+    .panel-heading {
+      background-color:#2C3E50;;
+      color: #ffffff;
+      padding: 15px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: bold;
+     
+    }
+    
+    /* Table styling */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    /* Table header */
+    .table th {
+      background-color: #eef2f7;
+      padding: 12px;
+      text-align: left;
+      font-weight: bold;
+      color: #464545;
+    }
+    
+    /* Table cells */
+    .table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    /* Hover effect on table rows */
+    .table tr:hover {
+      background-color: #eef2f7;
+    }
+    
+    /* Styling for form elements */
+    
+    
+    /* Styling for the class selection section */
+    td {
+      padding: 15px;
+      vertical-align: middle;
+      font-size: 16px;
+    }
+    
+    /* Lists inside div */
+   
+    /* Add some spacing around buttons if they were included */
+   
+   
+    
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      .container {
+          padding: 15px;
+      }
+    
+      .table td, .table th {
+          padding: 8px;
+      }
+    
+      .panel-heading {
+          font-size: 16px;
+      }
+    }
+    
+      
+    </style>
+  
+  </head>
+
+<div class="container">
+	<div class="row" >
+    	<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="color: #ffffff;">Your Quiz Marks</h4>
+          </div>
+{% if marks %}
+    <table class="table table-hover" id="dev-table">
+        <tr>
+            <th>Quiz Title</th>
+            <th>Subject</th>
+            <th>Total Marks</th>
+            <th>Achieved Marks</th>
+            
+        </tr>
+        {% for mark in marks %}
+            <tr>
+                <td>{{ mark.quiz.title }}</td>
+                <td>{{ mark.quiz.subject_obj.sub_name}}</td>
+                <td>{{ mark.quiz.total_marks }}</td>
+                
+                <td>{{ mark.achieved_marks }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No quiz attempts found.</p>
+{% endif %}
+</div>
+</div>
+</div>
+{%endblock content%}

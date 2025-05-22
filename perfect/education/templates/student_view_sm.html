@@ -1,0 +1,223 @@
+{% extends 'student_dashboard.html' %}
+{% block content %}
+{% load static %}
+<head>
+{% comment %} 
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+
+  <style media="screen">
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 1000px;
+  padding-top: 50px;
+  margin-left:550px;
+  margin-top:120px;
+  padding:0px;
+  height: 100px;
+}
+
+/* Panel styling */
+.panel {
+  border: 1px solid #e6cccc;
+  background-color:#ffffff;
+  color: #333;
+  border-radius: 8px;
+  overflow: auto;
+  box-shadow: 0 4px 25px #2C3E50;
+  height:auto;
+  
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color:#2C3E50;
+  color: #ffffff;
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  width: 131%;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Table header */
+.table th {
+  background-color: #eef2f7;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;  
+  color: #464545;
+  height: 50px;
+  width:1000px;
+}
+
+/* Table cells */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect on table rows */
+.table tr:hover {
+  background-color: #eef2f7;
+}
+
+/* Styling for form elements */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #faf5f5;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1a9bf1;
+}
+
+/* Styling for the class selection section */
+td {
+  padding: 15px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+/* Lists inside div */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .table td, .table th {
+      padding:5px;
+  }
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  </style>
+
+</head>
+
+
+
+
+
+<!--
+written By : sumit kumar
+facebook : fb.com/sumit.luv
+-->
+
+<div class="container" >
+
+    	<div class="row">
+
+				<div class="panel panel-primary" style="width:140%; margin-left:-120px;">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="padding-right: 400px;"><strong>Study Meterial</strong></h4>
+
+					</div>
+
+					<table class="table table-hover" id="dev-table">
+            <thead>
+
+              <tr>
+                <th>Teacher Name</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>PDF Link</th>
+                
+            </tr>
+            </thead>
+            {% for material in materials %}
+                    <tr>
+                        <td>{{ material.teacher_obj.name }}</td>
+                        <td>{{ material.class_obj.name}}</td>
+                        <td>{{ material.teacher_obj.Subjects.sub_name }}</td>
+                        <td>{{ material.date }}</td>
+                        <td><a href="{{ material.pdf_url.url }}" target="_blank">Download PDF</a></td>
+                        {% comment %} <td><a class="fas fa-edit" href="{% url 'update_sm' material.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a></td> {% endcomment %}
+                         {% comment %} <td><a class="fa fa-trash" href="{% url 'delete_sm' material.id  %}"  ><span class="glyphicon glyphicon-trash"></span></a></td> {% endcomment %}
+                    </tr>
+                {% empty %}
+                       <p>No study materials available for your class.</p>
+                {% endfor %}
+                    
+                {% comment %} </td>
+              <td><a class="btn btn-primary btn-xs" href="{% url 'update-teacher' t.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a></td> {% endcomment %}
+                 
+
+              </tr>
+
+           
+					</table>
+				</div>
+
+
+				</div>
+			</div>
+
+
+
+
+
+{% endblock content %}

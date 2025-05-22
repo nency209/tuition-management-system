@@ -1,0 +1,248 @@
+{% extends 'student_dashboard.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    /* General styling */
+    body {
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    /* Styling the timetable table */
+    .timetable {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px #dcedff;
+      margin-top: 20px;
+    }
+
+    .timetable th, .timetable td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    .timetable th {
+      background-color: #527597;
+      color: #fff;
+    }
+
+    .timetable td {
+      background-color: #fffdfd;
+    }
+
+    .timetable tr:nth-child(even) td {
+      background-color: #f9f9f9;
+    }
+
+    .timetable tr:hover td {
+      background-color: #ebebeb;
+    }
+
+    /* Styling form and dropdown */
+    select, label {
+      font-size: 16px;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      width: 200px;
+      color: #527597;
+    }
+
+    /* Styling for the container */
+    .container {
+      max-width: 1200px;
+      margin-top: 100px;
+      padding: 10px;
+      background-color: #f5f7ff;
+      border-radius: 10px;
+      margin-left:300px;
+      box-shadow: 0 4px 8px #527597;
+    }
+
+    /* Customizing buttons */
+    .btn-submit {
+      background-color: #527597;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #45a049;
+    }
+
+    /* Center the timetable */
+    .row {
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    /* Styling for headers */
+    h6 {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .form-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px #dcedff;
+    }
+
+    .form-container label {
+      font-weight: bold;
+      margin-right: 10px;
+      color:#527597;
+    }
+
+    /* Add spacing between rows */
+    .table th, .table td {
+      padding: 15px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <!-- Timetable Form -->
+      <form method="GET">
+        {% if exams %}
+        <label for="exam_name">Select Exam:</label>
+        <select name="exam_name" id="exam_name" onchange="this.form.submit()">
+          <option value="">--Select Exam--</option>
+          {% for exam in exams %}
+            <option value="{{ exam }}" {% if exam == selected_exam_name %}selected{% endif %}>
+              {{ exam }}
+            </option>
+          {% endfor %}
+        </select>
+        {% endif %}
+      </form>
+    </div>
+
+    <!-- Timetable Table -->
+    <table class="table table-bordered timetable">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Day</th>
+          <th>Total Marks</th>
+        </tr>
+      </thead>
+      <tbody id="timetable-body">
+        {% if t %}
+          {% for b in t %}
+          <tr>
+            <td>{{ b.Subjects_obj.sub_name }}</td>
+            <td>{{ b.exam_name }}</td>
+            <td>{{ b.date }}</td>
+            <td>{{ b.time }}-{{ b.e_time }}</td>
+            <td>{{ b.day }}</td>
+            <td>{{ b.total_marks }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+
+  </div>
+
+  <script>
+    const timetableData = {};
+
+    function addTimetableEntry() {
+        const time = document.getElementById("time").value;
+        const day = document.getElementById("day").value;
+        const subject = document.getElementById("subject").value;
+        const teacher = document.getElementById("teacher").value;
+
+        if (time && day && subject && teacher) {
+            // Check if time slot already exists
+            if (!timetableData[time]) {
+                timetableData[time] = { lectureNumber: Object.keys(timetableData).length + 1, details: ["", "", "", "", "", "", ""] };
+            }
+
+            // Map day to its column index
+            const dayIndex = {
+                "Monday": 0,
+                "Tuesday": 1,
+                "Wednesday": 2,
+                "Thursday": 3,
+                "Friday": 4,
+                "Saturday": 5,
+                "Sunday": 6
+            };
+
+            // Add class and teacher details to the appropriate day
+            timetableData[time].details[dayIndex[day]] = Lecture ${timetableData[time].lectureNumber}<br>${subject}<br><small>${teacher}</small>;
+
+            // Update the timetable
+            updateTimetable();
+
+            // Clear the form
+            document.getElementById("timetableForm").reset();
+        } else {
+            alert("Please fill out all fields!");
+        }
+    }
+
+    function updateTimetable() {
+        const timetableBody = document.getElementById("timetable-body");
+        timetableBody.innerHTML = ""; // Clear existing rows
+
+        for (const [time, { lectureNumber, details }] of Object.entries(timetableData)) {
+            const row = document.createElement("tr");
+
+            const timeCell = document.createElement("td");
+            timeCell.innerHTML = ${time}<br><small>Lecture ${lectureNumber}</small>;
+            row.appendChild(timeCell);
+
+            details.forEach(detail => {
+                const detailCell = document.createElement("td");
+                detailCell.innerHTML = detail || "--"; // Placeholder for empty cells
+                row.appendChild(detailCell);
+            });
+
+            timetableBody.appendChild(row);
+        }
+    }
+  </script>
+</body>
+
+</html>
+{% endblock content%}

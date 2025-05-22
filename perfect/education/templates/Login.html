@@ -1,0 +1,155 @@
+{% extends "teacher_nav.html" %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+            color: #333; 
+            margin-right:0;
+            padding:0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{%static 'img\login.jpg' %}" );
+            background-repeat: no-repeat;
+           
+        }
+        .login-container {
+            width: 100%;
+            height: 50%;
+            max-width: 400px;
+            background-color: #ffffff;
+            margin-left:200px;
+            margin-top:90px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 6px 10px 10px 10px rgba(237, 54, 54, 0.3);
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group a {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            color: rgba(180, 15, 15, 0.925);
+            text-decoration: none;
+            margin-top: 5px;
+        }
+        .form-group a:hover {
+            text-decoration: underline;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(237, 54, 54);
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: rgba(180, 15, 15, 0.925);
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        <h2>Student Login</h2>
+        <br>
+        <form id="loginForm" method="post">
+            {% csrf_token %}
+            <!-- Username -->
+            {% comment %} <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                <small class="error" id="usernameError"></small>
+            </div> {% endcomment %}
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                <small class="error" id="emailError"></small>
+            </div>
+            <br>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <small class="error" id="passwordError"></small>
+            </div>
+            
+            <!-- Forgot Password -->
+            <div class="form-group">
+                <a href="{% url "student_forgot_password" %}">Forgot Password?</a>
+            </div>
+         
+            <div class="form-group">
+                <a href="{% url 'admissionpage'%}">Registration</a>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Login</button>
+                
+            </div>
+            {% if error %}
+            <script>
+                alert('{{error}}')
+            </script>
+            {% endif %}
+            {% if nr %}
+            <script>
+                alert('{{nr}}')
+            </script>
+            {% endif %}
+        </form>
+       
+    
+    </div>
+    {% comment %} <script src="{% static 'js/login.js' %}"></script> {% endcomment %}
+    
+</body>
+</html>
+{% endblock content %}
+

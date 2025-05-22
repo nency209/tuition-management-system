@@ -1,0 +1,233 @@
+{% extends "staff_dashboard.html" %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Time Table</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        h1 {
+            text-align: center;
+            margin-top: 0px;
+            color:#527597;
+            font-weight: 600;
+        }
+
+        /* Form Container Styling */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px #035ab8;
+            margin-top:100px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 20px;
+            color: #333;
+            font-weight:bold;
+        }
+
+        select, input[type="text"], button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select:focus, input[type="text"]:focus, button:focus {
+            outline: none;
+            border-color: #1a9bf1;
+            background-color: #f1fdf1;
+        }
+
+        select, input[type="time"], button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select:focus, input[type="time"]:focus, button:focus {
+            outline: none;
+            border-color: #1a9bf1;
+            background-color: #f1fdf1;
+        }
+        button {
+            background-color: #2C3E50;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #035ab8;
+        }
+
+        /* Select Options Styling */
+        select {
+            background-color: #f9f9f9;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2C3E50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #2C3E50;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Create Batch Time Table</h1>
+
+        <!-- Class Selection Form -->
+        <form method="get">
+            <div class="form-group">
+                <label for="class">Class:</label>
+                <select name="class_id" id="class" onchange="this.form.submit()">
+                    <option value="">--Select Class--</option>
+                    {% for classs in class %}
+                        <option value="{{ classs.id }}" {% if classs.id|stringformat:"s" == selected_class %}selected{% endif %}>
+                            {{ classs.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+
+        <!-- Timetable Entry Form -->
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="class_id" value="{{ selected_class }}">
+
+            <div class="form-group">
+                <label for="batch">Batch:</label>
+                <select name="batch_id" id="batch">
+                    <option value="">--Select Batch--</option>
+                    {% for batch in batches %}
+                        <option value="{{ batch.id }}">{{ batch.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select name="subject_id" id="subject">
+                    <option value="">--Select Subject--</option>
+                    {% for subjects in subject %}
+                        <option value="{{ subjects.id }}">{{ subjects.sub_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="times">Start Time Slot:</label>
+                <input type="time" id="times" name="time_slot"  placeholder="e.g., 08:00 - 09:00" required>
+            </div>
+
+            <div class="form-group">
+                <label for="e_times">End Time Slot:</label>
+                <input type="time" id="e_times" name="e_time_slot"  placeholder="e.g., 08:00 - 09:00" required>
+            </div>
+
+            <div class="form-group">
+                <label for="day">Day:</label>
+                <select id="day" name="day" required>
+                    <option value="">Select Day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+            </div>
+
+            <button type="submit">Save Time Table</button>
+
+            {% if successfully %}
+    <script>
+      alert('{{successfully}}')
+    </script>
+    {% endif %}
+        </form>
+    </div>
+
+</body>
+</html>
+{% endblock content %}

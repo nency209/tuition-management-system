@@ -1,0 +1,164 @@
+{% extends 'staff_dashboard.html' %} 
+{% load static %}
+{% block content %}
+
+<head>
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+    
+    /* Styling for the notice header */
+    .note {
+      text-align: center;
+      height: 90px;
+      background-color:#2C3E50;
+      color: #fff;
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 90px;
+      border-radius: 10px;
+    }
+
+    /* Form container styling */
+    .form-content {
+      padding: 30px;
+      border: 2px solid #ced4da;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      background-color: #f9f9f9;
+    }
+
+    label{
+          margin-top: 10px;
+          margin-bottom: 10px;
+  
+          font-size: 20px;
+          color:black;
+      }
+
+    /* Styling for form inputs */
+    .input-box input {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 140%;
+      font-size: 16px;
+      background-color: #faf5f5;
+    }
+
+    /* Adjust styling for textarea */
+    .input-box textarea {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 140%;
+      font-size: 16px;
+      background-color: #faf5f5;
+      height: 100px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+
+    /* Submit button styling */
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 12px 30px;
+      width: 20%;
+      cursor: pointer;
+      background: #2C3E50;
+      color: #fff;
+      font-size: 16px;
+      display: block;
+      margin: 20px auto;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Button hover effect */
+    .btnSubmit:hover {
+      background-color: #035ab8;
+    }
+
+    /* Responsive design */
+    @media (max-width: 500px) {
+      .form-content {
+        padding: 20px;
+      }
+
+      .btnSubmit {
+        width: 50%;
+      }
+    }
+
+  </style>
+
+  <!-- Bootstrap CDN for better styling -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<!-- Notice Form -->
+<form method="post" style="width: 1200px; padding-left: 500px; margin-top:100px;">
+  {% csrf_token %}
+  <div class="container register-form">
+    <div class="form">
+      <!-- Notice Header Section -->
+      <div class="note">
+        <p>Announce Something</p>
+      </div>
+
+      <!-- Form Content -->
+      <div class="form-content">
+        <div class="row">
+          <div class="col-md-8">
+            <!-- Date Input -->
+            <div class="input-box">
+              <label for="date">Enter Date</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+
+            <!-- Name Input -->
+            <div class="input-box">
+              <label for="name">Enter Title</label>
+              <input type="text" id="name" name="name" placeholder="Enter Title" required />
+            </div>
+
+            <!-- Message Input -->
+            <div class="input-box">
+              <label for="tname">Enter Message</label>
+              <textarea id="tname" name="tname" placeholder="Write your message here" required></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btnSubmit">Submit</button>
+
+        <!-- Success Message (if any) -->
+        {% if sucessfully %}
+          <script>
+            alert('{{sucessfully}}');
+          </script>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Footer Comments -->
+<!--
+Written By: Sumit Kumar
+Facebook: fb.com/sumit.luv
+-->
+
+{%endblock content%}

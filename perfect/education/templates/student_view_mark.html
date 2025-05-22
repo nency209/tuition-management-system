@@ -1,0 +1,139 @@
+{% extends "student_dashboard.html" %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Marks</title>
+
+    <!-- Link to Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Link to Bootstrap for responsive design (if necessary) -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        /* Body and general styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 38px;
+            color: #527597;
+            margin-top: 25px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(185, 142, 241, 0.89); 
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+           margin-top:90px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(180, 154, 252, 0.89);
+        }
+
+        .marks-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+            
+        }
+
+        .mark-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 48%;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(180, 154, 252, 0.89);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mark-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .mark-card h3 {
+            font-size: 22px;
+            color: #2b76bd;
+            margin-bottom: 10px;
+        }
+
+        .mark-card p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .mark-card .marks {
+            /* font-weight: bold; */
+            font-size: 18px;
+        }
+
+        .no-marks {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .marks-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mark-card {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Your Marks</h1>
+
+        {% if marks %}
+            <div class="marks-container">
+                {% for mark in marks %}
+                    <div class="mark-card">
+                        <h3>{{ mark.exam_obj.Subjects_obj.sub_name }}</h3> <!-- Assuming subject is a ForeignKey -->
+                        <p><strong>Title:</strong> {{ mark.exam_obj.exam_name }}</p>
+                        <p><strong>Total Marks:</strong> {{ mark.exam_obj.total_marks }}</p>
+                        <p class="marks"><strong>Achieved Marks:</strong> {{ mark.achieve_marks }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-marks">No marks available.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
+{% endblock content %}

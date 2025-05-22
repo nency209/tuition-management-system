@@ -1,0 +1,646 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>eNno Animated Page</title>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{% static 'CSS/main.css' %}" rel="stylesheet">
+
+    <style>
+        /* Custom Fade-in Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="index-page">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center sticky-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center">
+            <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
+                <h1 class="sitename">Perfect Group Tuition</h1>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Facilities</a></li>
+                    <li><a href="#portfolio">Classes&Subject</a></li>
+                    <li><a href="{% url 'admissionpage' %}">Admission</a></li>
+                    <li class="dropdown"><a href="#"><span>Career</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                          {% comment %} <li><a href="#">Teacher</a></li> {% endcomment %}
+                          <li class="dropdown"><a href="#"><span>Teacher</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                              <li><a href="{% url 'tp'  %}">Apply</a></li>
+                            </ul>
+                          </li>
+                          <li class="dropdown"><a href="#"><span>Staff</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                              <li><a href="{% url 'sp'  %}">Apply</a></li>
+                            </ul>
+                          </li>
+                          
+                        </ul>
+                      </li>
+                      
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+            <a class="btn-getstarted" href="#about">Get Started</a>
+        </div>
+    </header>
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero section fade-in">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-right">
+                    <h1>Empowering Students with Quality Eduction </h1>
+                    <br>
+                    <p> A seamless and efficient way to manage students, classes, payments, and performance tracking—all in one place!</p>
+                    <a href="#about" class="btn-get-started">Get Started</a>
+                </div>
+                <div class="col-lg-6 hero-img" data-aos="fade-left">
+                    <img src="{% static 'img/hero-img.png' %}" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= About Section with Animation ======= -->
+    {% comment %} <section id="about" class="about section">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h2>About Us</h2>
+                    <p>We create elegant, responsive, and engaging websites.</p>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <img src="{% static 'img/about.png' %}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <!-- Featured Services Section -->
+    
+
+  <!-- About Section -->
+  <section id="about" class="about section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span>About Us<br></span>
+      <h2>About Us</h2>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="row gy-4">
+        <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100" style="margin-top:150px">
+          <img src="{% static 'img/about.png' %}" class="img-fluid" alt="">
+          <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+        </div>
+        <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+          <h3>Perfect Group Tuition is the fastest growing and extensive educational platform known for its excellent tutoring .</h3>
+          <p class="fst-italic">
+            Perfect Group Tuition teaching services and initiated in the year 2001. As a team, faculty members & tutors of Perfect Group Tuition make subjects, concepts, and courses simple and easy for the students looking for the top grades & ranks in their academic career.
+Perfect Group Tuition connects students with expert teachers in a digital classroom.  
+          </p>
+      
+          <h3> How Perfect Tutor Works? </h3>
+          <ul>
+            <li><i class="bi bi-check2-all"></i> <span>INTERACT WITH TUTORS:</span></li>
+            <p class="fst-italic">Connect with tutors before taking the service and chat to ensure that you have selected the right tutor for you. </p>
+            
+            <li><i class="bi bi-check2-all"></i> <span> JOIN THE CLASSES :</span></li>
+            <p class="fst-italic">Experience individualized education in the comfort of your own home as well as in our unique online classroom, which is intended to assist learning for today’s digital generation. </p>
+
+            <li><i class="bi bi-check2-all"></i> <span>EXAMINE YOUR PROGRESS: </span></li>
+            <p class="fst-italic"> After each session, go over your individualized comments and study recommendations to discover what areas you need to work on. </p>
+
+            <li><i class="bi bi-check2-all"></i> <span>SUCCEED: </span></li>
+            <p class="fst-italic"> Keep an eye on your grades. There is no shortcut to academic achievement, but customized learning with Perfect Tutor expert teachers provides you a competitive advantage. </p>
+          </ul>
+          
+        </div>
+      </div>
+
+    </div>
+
+  </section><!-- /About Section -->
+
+
+<!-- Services Section -->
+<section id="services" class="services section light-background">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <span>Facilities</span>
+    <h2>Facilities</h2>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item position-relative">
+          <div class="icon">
+            <i class="bi bi-activity"></i>
+          </div>
+          <a href="service-details.html" class="stretched-link">
+            <h3>Qualified and Experienced Tutors</h3>
+          </a>
+          <p>Perfect Tutor has emerged as a prominent platform to reach out to professional tutors for affordable home tutoring services. We suggest only Qualified and Experienced Tutors.</p>
+        </div>
+      </div><!-- End Service Item -->
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item position-relative">
+          <div class="icon">
+            <i class="bi bi-broadcast"></i>
+          </div>
+          <a href="service-details.html" class="stretched-link">
+            <h3>Interactive Study Materials</h3>
+          </a>
+          <p>Note and PDFs : Downloadable study materials class wise.</p>
+          <p> Incorporating interactive study materials enhances the learning experience by making education more engaging, efficient, and personalized. It bridges the gap between traditional and digital learning, ensuring better academic outcomes for students.</p>
+        </div>
+      </div><!-- End Service Item -->
+
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-item position-relative">
+          <div class="icon">
+            <i class="bi bi-easel"></i>
+          </div>
+          <a href="service-details.html" class="stretched-link">
+            <h3>Transparent and Hassle Free Services</h3>
+          </a>
+          <p>We offer completely Transparent and Hassle Free Services.There is no hidden terms. We take full care of the privacy of our customers. All payment methods we use are completely secured.</p>
+        </div>
+      </div><!-- End Service Item -->
+
+     <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span>Subjects for 11&12</span>
+        <h2>Subjects for 11&12</h2>
+        {% comment %} <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> {% endcomment %}
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          {% comment %} <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">App</li>
+            <li data-filter=".filter-product">Product</li>
+            <li data-filter=".filter-branding">Branding</li>
+            <li data-filter=".filter-books">Books</li>
+          </ul><!-- End Portfolio Filters --> {% endcomment %}
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="{% static 'img/11bisness.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Business Administration</h4>
+                
+                <a href="{% static 'img/11bisness.jpg' %}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="{% static 'img/11stat.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Statistics</h4>
+  
+                <a href="{% static 'img/11stat.jpg' %}" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+              <img src="{% static 'img/11eco.jpg' %}" class="img-fluid" alt="" >
+              <div class="portfolio-info">
+                <h4>Economics</h4>
+                
+                <a href="{% static 'img/11eco.jpg' %}" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+          
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+              <img src="{% static 'img/11english.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>English</h4>
+                
+                <a href="{% static 'img/11english.jpg' %}" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="{% static 'img/11account.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Accounts</h4>
+                
+                <a href="{% static 'img/11account.jpg' %}" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+              <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span>Subjects for 9&10</span>
+        <h2>Subjects for 9&10</h2>
+        <!-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> -->
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          <!-- <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">App</li>
+            <li data-filter=".filter-product">Product</li>
+            <li data-filter=".filter-branding">Branding</li>
+            <li data-filter=".filter-books">Books</li>
+          </ul>End Portfolio Filters -->
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="{% static 'img/10maths.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Maths</h4>
+                
+                <a href="{% static 'img/10maths.jpg' %}" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="{% static 'img/10english.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>English</h4>
+                
+                <a href="{% static 'img/10english.jpg' %}" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+              <img src="{% static 'img/10sci.jpg' %}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Science</h4>
+                
+                <a href="{% static 'img/10sci.jpg' %}" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+          
+            
+
+             <!-- Team Section -->
+    <section id="team" class="team section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span>Expert instruction</span>
+        <h2>Subject Expextor</h2>
+        <!-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> -->
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+              <div class="pic"><img src="{% static 'img/team-1.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Rajesh Sodvadiya</h4>
+                <span>PhD</span>
+                <span>10 Years Exp</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <div class="pic"><img src="{% static 'img/team-2.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Mitali Jotaniya</h4>
+                 
+                 
+                <span> M.com</span>
+                <span>  5 Years Exp</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="pic"><img src="{% static 'img/team-3.jpg' %}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Milan Rangani</h4>
+                <span>B.A</span>
+                <span>9 Years Exp</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Team Section -->
+
+
+    {% comment %} <!-- ======= Gallery Section ======= -->
+<section id="gallery" class="gallery section">
+  <div class="container">
+      <h2 class="text-center mb-4" data-aos="fade-up">Our Gallery</h2>
+      <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+              <a href="{% static 'img/gallery/gallery-1.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/gallery/gallery-1.jpg' %}" class="img-fluid rounded" alt="Gallery Image 1">
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+              <a href="{% static 'img/gallery/gallery-2.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/gallery/gallery-2.jpg' %}" class="img-fluid rounded" alt="Gallery Image 2">
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+              <a href="{% static 'img/gallery/gallery-3.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/gallery/gallery-3.jpg' %}" class="img-fluid rounded" alt="Gallery Image 3">
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
+              <a href="{% static 'img/gallery/gallery-4.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/gallery/gallery-4.jpg' %}" class="img-fluid rounded" alt="Gallery Image 4">
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="800">
+              <a href="{% static 'img/gallery/gallery-5.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/gallery/gallery-5.jpg' %}" class="img-fluid rounded" alt="Gallery Image 5">
+              </a>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="1000">
+              <a href="{% static 'img/team-1.jpg' %}" class="glightbox">
+                  <img src="{% static 'img/team-1.jpg' %}" class="img-fluid rounded" alt="Gallery Image 6">
+              </a>
+          </div>
+      </div>
+  </div>
+</section> {% endcomment %}
+<!-- ======= End Gallery Section ======= -->
+
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <span>Contact</span>
+    <h2>Contact</h2>
+    
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-5">
+
+        <div class="info-wrap">
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Address</h3>
+              <p>A-25, Patanjali Ternament, Ratan Park Road, Ahemdabada   </p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-telephone flex-shrink-0"></i>
+            <div>
+              <h3>Call Us</h3>
+              <p>+91 9824156290</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div>
+              <h3>Email Us</h3>
+              <p>perfectgrouptuition@gmail.com</p>
+            </div>
+          </div><!-- End Info Item -->
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.684518033176!2d72.64710607407527!3d23.035353015853484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e86f01b1e93b5%3A0xf31a6abced21ce20!2sRatan%20Park%20Rd%2C%20Khodiar%20Nagar%2C%20Ahmedabad%2C%20Gujarat%20380038!5e0!3m2!1sen!2sin!4v1739612404052!5m2!1sen!2sin" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+          <!--<iframe src="" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <div class="row gy-4">
+
+            <div class="col-md-6">
+              <label for="name-field" class="pb-2">Your Name</label>
+              <input type="text" name="name" id="name-field" class="form-control" required="">
+            </div>
+
+            <div class="col-md-6">
+              <label for="email-field" class="pb-2">Your Email</label>
+              <input type="email" class="form-control" name="email" id="email-field" required="">
+            </div>
+
+            <div class="col-md-12">
+              <label for="subject-field" class="pb-2">Subject</label>
+              <input type="text" class="form-control" name="subject" id="subject-field" required="">
+            </div>
+
+            <div class="col-md-12">
+              <label for="message-field" class="pb-2">Message</label>
+              <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+
+              <button type="submit">Send Message</button>
+            </div>
+
+          </div>
+        </form>
+      </div><!-- End Contact Form -->
+
+    </div>
+
+  </div>
+
+</section><!-- /Contact Section -->
+
+</main>
+
+<footer id="footer" class="footer">
+
+{% comment %} <div class="footer-newsletter">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-6">
+        <h4>Join Our Newsletter</h4>
+        <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+        <form action="forms/newsletter.php" method="post" class="php-email-form">
+          <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+          <div class="loading">Loading</div>
+          <div class="error-message"></div>
+          <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+<div class="container footer-top">
+  <div class="row gy-4">
+    <div class="col-lg-4 col-md-6 footer-about">
+      <a href="index.html" class="d-flex align-items-center">
+        <span class="sitename">Perfect Group Tuition</span>
+      </a>
+      <div class="footer-contact pt-3">
+        <p>A-25, Patanjali Ternament, Ratan Park Road, Ahemdabada</p>
+        <p>India</p>
+        <p class="mt-3"><strong>Phone:</strong> <span>9824156290</span></p>
+        <p><strong>Email:</strong> <span>perfectgrouptuition@gmail.com<</span></p>
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-md-3 footer-links">
+      <h4>Useful Links</h4>
+      <ul>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Facilities</a></li>
+        
+      </ul>
+    </div>
+
+    {% comment %} <div class="col-lg-2 col-md-3 footer-links">
+      <h4>Our Services</h4>
+      <ul>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+        <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+      </ul>
+    </div> {% endcomment %}
+
+    <div class="col-lg-4 col-md-12">
+      <h4>Follow Us</h4>
+      {% comment %} <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p> {% endcomment %}
+      <div class="social-links d-flex">
+        <a href=""><i class="bi bi-twitter-x"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container copyright text-center mt-4">
+  <p>© <span>Copyright</span> <strong class="px-1 sitename">perfect group tuition</strong> <span>All Rights Reserved</span></p>
+  <div class="credits">
+    <!-- All the links in the footer should remain intact. -->
+    <!-- You can delete the links only if you've purchased the pro version. -->
+    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href=“https://themewagon.com>ThemeWagon
+  </div>
+</div>
+
+</footer>
+
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000, // Animation duration
+            easing: 'ease-in-out', // Animation easing
+            once: true, // Only animate once
+        });
+    </script>
+
+</body>
+</html>

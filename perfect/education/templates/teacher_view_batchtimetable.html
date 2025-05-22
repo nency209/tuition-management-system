@@ -1,0 +1,152 @@
+{% extends "teacher_dashboard.html" %}
+{% block content %}
+{% load static %}
+{% load custom_filters %}  <!-- Load the custom filter here -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Timetable</title>
+    
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+            font-family: 'Arial', sans-serif;
+        }
+        form {
+            width: 50%;
+            margin: auto;
+            padding: 25px;
+            margin-top:50px;
+            margin-left:500px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 25px #2C3E50;
+            border-radius: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        table {
+            width:70%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 25px #2C3E50;
+            border-radius: 5px;
+          margin-left:400px;
+            
+        }
+
+    
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        label{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        
+        font-size: 20px;
+        color:black;
+    }
+
+    p
+    {
+        margin-left:400px;
+    }
+  
+    </style>
+</head>
+<body>
+
+    <h2 style="padding-left: 700px; ">View Batch Timetable</h2>
+
+    <!-- Class & Batch Selection Form -->
+    <form method="get">
+        <label for="class">Select Class:</label>
+        <select name="class_id" id="class" onchange="this.form.submit()">
+            <option value="">--Select Class--</option>
+            {% for classs in classes %}
+                <option value="{{ classs.id }}" {% if classs.id == selected_class_id %}selected{% endif %}>
+                    {{ classs.name }}
+                </option>
+            {% endfor %}
+        </select>
+        
+        <label for="batch" style="padding-top: 19px;">Select Batch:</label>
+        <select name="batch_id" id="batch" onchange="this.form.submit()">
+            <option value="">--Select Batch--</option>
+            {% for batch in batches %}
+                <option value="{{ batch.id }}" {% if batch.id == selected_batch_id %}selected{% endif %}>
+                    {{ batch.name }}
+                </option>
+            {% endfor %}
+        </select>
+{% comment %}         
+        <label for="batch">Update:</label>
+        <a class="btn btn-primary btn-xs" href="'update_bt'  classs.id"><span class="glyphicon glyphicon-edit"></span></a></label><br>
+        
+       
+        <label>Delete:<a class="btn btn-danger btn-xs" href="'delete_bt'  classs.id"><span class="glyphicon glyphicon-trash"></span></a></label>
+         {% endcomment %}
+    </form>
+   
+    <!-- Display Timetable -->
+    {% if structured_timetable %}
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Time Slot</th>
+                    {% for day in days_of_week %}
+                        <th>{{ day }}</th>
+                    {% endfor %}
+                  
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for time_slot, subjects in structured_timetable.items %}
+                    <tr>
+                        <td>{{ time_slot }}</td>
+                        {% for day in days_of_week %}
+                            <td>
+                                {% if subjects|get_item:day %}
+                                    {{ subjects|get_item:day }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            
+                        {% endfor %}
+                        
+                        {% comment %} <td><a class="btn btn-primary btn-xs" href="{% url 'update_bt' timetable_entries.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td><a class="btn btn-danger btn-xs" href="{% url 'delete_bt' timetable_entries.id  %}"  ><span class="glyphicon glyphicon-trash"></span></a></td> {% endcomment %}
+                        
+                    </tr>
+                    
+                {% endfor %}
+              
+            </tbody>
+        </table>
+        
+    {% else %}
+
+        <p>No timetable available for the selected batch.</p>
+    {% endif %}
+
+</body>
+</html>
+{% endblock content %}

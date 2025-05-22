@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add City</title>
+</head>
+<body>
+    <h2>Add City</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>City Name:</label>
+        <input type="text" name="city_name" required>
+
+        <label>Select State:</label>
+        <select name="state_id" required>
+            <option value="">-- Select State --</option>
+            {% for state in states %}
+                <option value="{{ state.id }}">{{ state.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Add City</button>
+    </form>
+</body>
+</html>

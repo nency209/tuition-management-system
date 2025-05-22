@@ -1,0 +1,170 @@
+{% extends "student_dashboard.html" %}
+{% block content %}
+<head>
+    <style media="screen">
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body background and general font settings */
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f7f7f7, #dfe9f3);
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        /* Container for main content */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Panel styling */
+        .panel {
+            border: 1px solid #e6cccc;
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px #2C3E50;
+        }
+
+        /* Panel header styling */
+        .panel-heading {
+            background-color: #2C3E50;
+            color: #ffffff;
+            padding: 20px;
+            font-size: 26px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Table styling */
+        .table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        /* Table header */
+        .table th {
+            background-color: #eef2f7;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #464545;
+        }
+
+        /* Table cells */
+        .table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Hover effect on table rows */
+        .table tr:hover {
+            background-color: #f7f7f7;
+        }
+
+        /* Styling for form elements */
+        label {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Styling for the class selection section */
+        td {
+            padding: 15px;
+            vertical-align: middle;
+            font-size: 16px;
+        }
+
+        /* Buttons */
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #2C3E50;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #035ab8;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            .panel-heading {
+                font-size: 20px;
+            }
+
+            .table th,
+            .table td {
+                padding: 10px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title" style="color: #ffffff;">Attempt Quiz: {{ quiz.title }}</h4>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <table class="table">
+                {% for question in questions %}
+                    <tr>
+                        <td>
+                            <fieldset>
+                                <legend style="font-size: 18px; font-weight: bold;">{{ question.text }}</legend>
+                                <label><input type="radio" name="question_{{ question.id }}" value="option1"> {{ question.option1 }}</label><br>
+                                <label><input type="radio" name="question_{{ question.id }}" value="option2"> {{ question.option2 }}</label><br>
+                                <label><input type="radio" name="question_{{ question.id }}" value="option3"> {{ question.option3 }}</label><br>
+                                <label><input type="radio" name="question_{{ question.id }}" value="option4"> {{ question.option4 }}</label><br>
+                            </fieldset>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+</div>
+
+{%endblock content%}

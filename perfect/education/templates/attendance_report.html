@@ -1,0 +1,33 @@
+{% extends "a.html" %}
+{% block content %}
+<h2>Attendance Report</h2>
+<form method="GET">
+    <label>Select Class:</label>
+    <select name="class_id">
+        <option value="">Select</option>
+        {% for clss in classes %}
+        <option value="{{ clss.id }}">{{ clss.name }}</option>
+        {% endfor %}
+    </select>
+    <label>Year:</label>
+    <input type="number" name="year" placeholder="YYYY">
+    <label>Month:</label>
+    <input type="number" name="month" placeholder="MM">
+    <button type="submit">Filter</button>
+</form>
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+    {% for record in attendance_records %}
+    <tr>
+        <td>{{ record.student.name }}</td>
+        <td>{{ record.date }}</td>
+        <td>{{ record.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'generate_attendance_pdf' %}">Download PDF</a>
+{% endblock %}

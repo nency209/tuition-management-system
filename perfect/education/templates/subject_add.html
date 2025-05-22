@@ -1,0 +1,206 @@
+{% extends 'a.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <style media="screen">
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    .form {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px #2C3E50;
+      width: 700px;
+      height: 400px;
+      margin-left:350px;
+      margin-top:150px;
+      
+    }
+    select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+  input{
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 150%;
+    font-size: 16px;
+    background-color: #faf5f5;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #08a4d3;
+  }
+    
+    a:link {
+      text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      height: 80px;
+      background-color:#2C3E50;
+      color: #ffffff;
+      font-weight: bold;
+      line-height: 100px;
+      font-family: 'Arial', sans-serif;
+      padding-top: 25px;
+    }
+    label{
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        font-size: 20px;
+        color:black;
+    }
+
+    .form-content {
+      padding: 5%;
+      border: 2px solid #ced4da;
+      margin-bottom: 2%;
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+      height: 100px;
+    }
+
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 40%;
+      cursor: pointer;
+      background:#2C3E50;
+      color: #fff;
+    }
+
+    .error {
+      color: red;
+      display: none;
+  }
+
+  </style>
+
+  
+
+</head>
+
+
+
+<!------ notice page for  by admin(sumit)  ---------->
+<form method="post" onsubmit="return validateInput()" style="width:700px;padding-left: 200px;">
+  {% csrf_token %}
+  <div class="container register-form">
+    <div class="form">
+      <div class="note">
+        <h4 style="color: #ffffff;">Add Subject </h4>
+      </div>
+      <div class="form-content">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="column">
+                <label>Select Class : </label> <br>
+                <div class="select-box">
+                  <select name="select"  id="classSelect" onchange="toggleSubjectField()" required>
+                    <option hidden value="">------Select Class-----</option>
+                    {% for i in  cls  %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                  </select> 
+                </div> 
+              </div>
+          <br> 
+          <label>Enter Subject Name : </label> <br>
+          <div class="input-box">
+            <input type="text"  id="subjectInput" name="subname" maxlength="20" pattern="^[A-Za-z ]+"placeholder="Enter Subject name"  title="Only letters ans speces are allowed" disabled/>
+          </div>
+          <br>
+          <br>
+          <div class=".btnSubmit ">
+          <button type="submit" class="btnSubmit">Submit</button>
+          
+          <span id="error-message" class="error">Only alphabets and spaces are allowed.</span>
+        <br><br>
+        
+        <script>
+
+          function toggleSubjectField() {
+            let classSelect = document.getElementById("classSelect");
+            let subjectInput = document.getElementById("subjectInput");
+
+            if (classSelect.value !== "") {
+                subjectInput.disabled = false; // Enable subject field
+            } else {
+                subjectInput.disabled = true; // Disable subject field
+                subjectInput.value = ""; // Clear previous value
+            }
+        }
+
+          function validateInput() {
+              let inputField = document.getElementById("nameInput");
+              let errorMessage = document.getElementById("error-message");
+              let pattern = /^[A-Za-z\s]+$/; // Only A-Z, a-z and space allowed
+  
+              if (!pattern.test(inputField.value)) {
+                  errorMessage.style.display = "inline"; // Show error message
+                  return false; // Prevent form submission
+              } else {
+                  errorMessage.style.display = "none"; // Hide error message
+                  return true; // Allow form submission
+              }
+          }
+      </script>
+
+      
+          {% if error %}
+    <script>
+      alert('{{error}}')
+    </script>
+    {% endif %}
+          </div>
+            </div>
+          </div>
+        
+        </div>
+        <br>
+        <br>
+        
+        {% if sucessfully %}
+    <script>
+      alert('{{sucessfully}}')
+    </script>
+    {% endif %}
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+{% endblock content%}

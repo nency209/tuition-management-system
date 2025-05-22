@@ -1,0 +1,213 @@
+{% extends 'staff_dashboard.html' %}
+{% block content %}
+
+<head>
+
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  
+
+  <style media="screen">
+   
+    /* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body background and general font settings */
+body {
+  height: 200%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+  color: #333;
+  line-height: 1.6;
+  padding: 0px;
+  
+}
+
+/* Container for main content */
+.container {
+  position: relative;
+  max-width: 700px;
+  padding-top: 20px;
+  margin: 0 auto;
+  padding: 30px;
+  margin-top:100px;
+  margin-left:500px;
+}
+
+/* Panel styling */
+.panel {
+  border: 1px solid #e6cccc;
+  background-color:#ffffff;
+  color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 25px #2C3E50;
+  width: 700px;
+}
+
+/* Panel header styling */
+.panel-heading {
+  background-color:#2C3E50;
+  color: #ffffff;
+  padding: 15px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+ 
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Table header */
+.table th {
+  background-color: #eef2f7;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #464545;
+}
+
+/* Table cells */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hover effect on table rows */
+.table tr:hover {
+  background-color: #eef2f7;
+}
+label{
+      margin-top: 5px;
+      margin-bottom: 5px;
+
+      font-size: 20px;
+      color:black;
+  }
+/* Styling for form elements */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #faf5f5;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1a9bf1;
+}
+
+/* Styling for the class selection section */
+td {
+  padding: 15px;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+/* Lists inside div */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 8px 0;
+  font-size: 16px;
+  color: #464545;
+}
+
+/* Add some spacing around buttons if they were included */
+button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .table td, .table th {
+      padding: 8px;
+  }
+
+  .panel-heading {
+      font-size: 16px;
+  }
+}
+
+  
+</style>
+
+</head>
+
+
+
+<!--
+written By : sumit kumar
+facebook : fb.com/sumit.luv
+-->
+
+<div class="container" style="width: 900px;">
+  <div class="row" >
+    <div class="panel panel-primary">
+				<div class="panel-heading">
+						<h4 class="panel-title" style="color: #ffffff;">View Gallery</h4>
+				</div>
+        {% comment %} <h3 style="padding-left:150px;">Select Class</h3> {% endcomment %}
+        <form method="get" style="padding-left:150px;">
+          <table class="table table-hover" id="dev-table">
+            <thead>
+                <tr>
+                    {% comment %} <th>Class</th> {% endcomment %}
+                    <th>Year</th>
+                    <th>image</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+          
+     
+    {% if subjects %}
+    {% comment %} <h3>Subjects</h3> {% endcomment %}
+      
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.year }}</td>
+            <td><img src="{{ subject.image.url }}" alt="Subject Image" style="max-width: 100px; max-height: 100px;" /></td>
+            <td><a class="fas fa-edit" href="{% url 'update_gallery' subject.id  %}"  ><span class="glyphicon glyphicon-edit"></span></a></td>
+            <td><a class="fa fa-trash" href="{% url 'delete_gallery' subject.id  %}"  ><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+        {% endfor %}
+     
+   
+    {% endif %}
+  </form>
+  </table>
+
+
+				</div>
+				</div>
+			</div>
+{% endblock content%}

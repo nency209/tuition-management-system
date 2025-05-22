@@ -1,0 +1,232 @@
+{% extends "teacher_dashboard.html" %}
+{% block content %}
+
+
+
+<head>
+
+  
+
+    <style media="screen">
+     
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body background and general font settings */
+    body {
+      height: 200%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right,hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%),hsl(0, 0.00%, 100.00%));
+      color: #333;
+      line-height: 1.6;
+      padding: 0px;
+      
+    }
+    
+    /* Container for main content */
+    .container {
+      position: relative;
+      max-width: 1000px;
+      padding-top: 20px;
+      margin-top: 80px;
+      margin-left: 500px;
+      padding: 30px;
+    }
+    
+    /* Panel styling */
+    .panel {
+      border: 1px solid #e6cccc;
+      background-color:#ffffff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px #2C3E50;
+      width: 700px;
+    }
+    
+    /* Panel header styling */
+    .panel-heading {
+      background-color:#2C3E50;
+      color: #ffffff;
+      padding: 15px;
+      font-size: 25px;
+      text-align: center;
+      font-weight: bold;
+     
+    }
+    
+    /* Table styling */
+    
+    
+    
+    label{
+          margin-top: 5px;
+          margin-bottom: 5px;
+  
+          font-size: 20px;
+          color:black;
+      }
+      input {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #faf5f5;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #faf5f5;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #1a9bf1;
+    }
+    
+   
+    
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #2C3E50;
+      color: #fff;
+
+    }
+    
+    button:hover {
+      background-color:rgb(30, 58, 85);
+    }
+    
+    a:hover {
+       color: purple;
+    }
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      .container {
+          padding: 15px;
+      }
+    
+      .table td, .table th {
+          padding: 8px;
+      }
+    
+      .panel-heading {
+          font-size: 16px;
+      }
+    }
+    
+      
+    .error {
+      color: red;
+      display: none;
+  }
+    </style>
+  
+  </head>
+
+
+<div class="container">
+	<div class="row" >
+    	<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title" style="color: #ffffff;">Add Questions to Quiz: {{ quiz.title }}</h4>
+          </div>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="POST" onsubmit="return validateNumber()">
+    {% csrf_token %}
+    
+    <label>Question:</label></br>
+    <textarea name="question" 
+     style="padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #faf5f5;" required></textarea></br></br>
+
+
+
+
+    <label>Option 1:</label></br>
+    <input type="text" name="option1" required></br></br>
+
+    <label>Option 2:</label></br>
+    <input type="text" name="option2" required></br></br>
+
+    <label>Option 3:</label>
+    <input type="text" name="option3" required></br></br>
+
+    <label>Option 4:</label></br>
+    <input type="text" name="option4" required></br></br>
+
+    <label>Correct Answer:</label></br>
+    <select name="correct_option" required>
+        <option value="">-- Select Correct Answer --</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="option4">Option 4</option>
+    </select></br></br>
+
+    <label>Marks:</label></br>
+    <input type="number" name="marks" id=numberInput oninput="limitInputLength()" placeholder="Enter up to 3 digits" required ></br></br>
+    <span id="error-message" class="error">Maximum 6 digits allowed.</span>
+        <br><br>
+    <button type="submit" class="btnSubmit">Add Question</button></br></br>
+
+    <script>
+      function limitInputLength() {
+          let numberInput = document.getElementById("numberInput");
+
+          if (numberInput.value.length > 3) {
+              numberInput.value = numberInput.value.slice(0, 3); // Cut extra digits
+          }
+      }
+
+      function validateNumber() {
+          let numberInput = document.getElementById("numberInput");
+          let errorMessage = document.getElementById("error-message");
+
+          if (numberInput.value.length > 3) {
+              errorMessage.style.display = "inline"; // Show error
+              return false; // Prevent form submission
+          } else {
+              errorMessage.style.display = "none"; // Hide error
+              return true; // Allow form submission
+          }
+      }
+
+  </script>
+</form>
+
+<a href="{% url 'teacher_dashboard' %}" style="padding-left:15px ;  font-size: 18px; color: #035ab8;">Finish </a>
+</div>
+</div>
+</div>
+</html>
+{%endblock content%}
